@@ -85,25 +85,25 @@ set(EXTERNALPROJECT_SITEPACKAGES_DIR ${EXTERNALPROJECT_INSTALL_PREFIX}/lib/pytho
 if(DEFINED ENV{CURA_MAJOR_VERSION})
     set(CURA_MAJOR_VERSION $ENV{CURA_MAJOR_VERSION} CACHE STRING "Cura Major Version" FORCE)
 else()
-    set(CURA_MAJOR_VERSION "master" CACHE STRING "Cura Major Version")
+    set(CURA_MAJOR_VERSION "2" CACHE STRING "Cura Major Version")
 endif()
 
 if(DEFINED ENV{CURA_MINOR_VERSION})
     set(CURA_MINOR_VERSION $ENV{CURA_MINOR_VERSION} CACHE STRING "Cura Minor Version" FORCE)
 else()
-    set(CURA_MINOR_VERSION "0" CACHE STRING "Cura Minor Version")
+    set(CURA_MINOR_VERSION "3" CACHE STRING "Cura Minor Version")
 endif()
 
 if(DEFINED ENV{CURA_PATCH_VERSION})
     set(CURA_PATCH_VERSION $ENV{CURA_PATCH_VERSION} CACHE STRING "Cura Patch Version" FORCE)
 else()
-    set(CURA_PATCH_VERSION "0" CACHE STRING "Cura Patch Version")
+    set(CURA_PATCH_VERSION "1-master" CACHE STRING "Cura Patch Version")
 endif()
 
 if(DEFINED ENV{CURA_EXTRA_VERSION})
     set(CURA_EXTRA_VERSION $ENV{CURA_EXTRA_VERSION} CACHE STRING "Cura Extra Version Information" FORCE)
 else()
-    set(CURA_EXTRA_VERSION "${TAG_OR_BRANCH}" CACHE STRING "Cura Extra Version Information")
+    set(CURA_EXTRA_VERSION "59fb0bc" CACHE STRING "Cura Extra Version Information")
 endif()
 
 set(CURA_VERSION "${CURA_MAJOR_VERSION}.${CURA_MINOR_VERSION}.${CURA_PATCH_VERSION}")
@@ -136,6 +136,7 @@ if(BUILD_PYTHON)
     set(PYTHON_VERSION_MAJOR 3)
     set(PYTHON_VERSION_MINOR 4)
 else()
+    set(Python_ADDITIONAL_VERSIONS 3.4)
     find_package(PythonInterp 3.4.0 REQUIRED)
     add_custom_target(Python)
 endif()
@@ -638,13 +639,13 @@ elseif(BUILD_OS_LINUX)
         "${CMAKE_BINARY_DIR}/inst/share;/opt/cura/share"
     )
 
-    set(package_dir "_CPack_Packages/Linux/${CPACK_GENERATOR}/Cura-${CURA_VERSION}-Linux/")
+    set(package_dir "_CPack_Packages/Linux/${CPACK_GENERATOR}/Cura-${CURA_VERSION}-Linux_i386/")
     set(CPACK_INSTALL_COMMANDS
         "${CMAKE_COMMAND} -E make_directory ${package_dir}/usr/bin"
         "${CMAKE_COMMAND} -E make_directory ${package_dir}/usr/share/applications"
         "${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/cura ${package_dir}/usr/bin/"
         "${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/cura.desktop ${package_dir}/usr/share/applications/"
-        "${CMAKE_COMMAND} -E copy /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.20 ${package_dir}/opt/cura/lib/libstdc++.so.6"
+        "${CMAKE_COMMAND} -E copy /usr/lib/i386-linux-gnu/libstdc++.so.6.0.22 ${package_dir}/opt/cura/lib/libstdc++.so.6"
     )
 endif()
 
@@ -678,9 +679,9 @@ set(DEB_DEPENDS
 )
 string(REPLACE ";" "," DEB_DEPENDS "${DEB_DEPENDS}")
 set(CPACK_DEBIAN_PACKAGE_DEPENDS ${DEB_DEPENDS})
-set(CPACK_DEBIAN_PACKAGE_ARCHITECTURE amd64)
+set(CPACK_DEBIAN_PACKAGE_ARCHITECTURE i386)
 # Set the right epoch so Debian knows this is a more recent version
-set(CPACK_DEBIAN_PACKAGE_VERSION "2:${CPACK_PACKAGE_VERSION}")
+set(CPACK_DEBIAN_PACKAGE_VERSION "${CPACK_PACKAGE_VERSION}")
 
 set(CPACK_NSIS_ENABLE_UNINSTALL_BEFORE_INSTALL ON)
 set(CPACK_NSIS_EXECUTABLES_DIRECTORY ".")
@@ -692,7 +693,7 @@ set(CPACK_NSIS_MENU_LINKS
 if(BUILD_OS_WIN32)
     set(CPACK_NSIS_PACKAGE_ARCHITECTURE "32")
 else()
-    set(CPACK_NSIS_PACKAGE_ARCHITECTURE "64")
+    set(CPACK_NSIS_PACKAGE_ARCHITECTURE "32")
 endif()
 
 include(CPack)

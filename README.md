@@ -1,114 +1,22 @@
-# cura-build
+# cura-build-i386
 
-This repository contains build scripts used to build Cura and all dependencies from scratch.
+This repository contains build scripts used to build Cura and all dependencies from scratch on a Linux i386 machine.
+Tested on a Ubuntu Trusty () setup.
+Highly experimental : The version numbering is based on the current official Cura github hash at the time it was las tested, and some dependencies might require manual installing.
 
 ## OS X
 
-1. Install CMake (available via [homebrew](http://brew.sh/) or [cmake.org](http://www.cmake.org/))
-2. Install latest version of Xcode.
-3. On Mac OS X > 10.10, execute command: *brew link openssl --force*
-4. Because Fortran is necessary: *brew install gcc*
-5. Run these commands:
-```shell
-git clone git@github.com:Ultimaker/cura-build.git
-cd cura-build
-mkdir build
-cd build
-cmake ..
-make
-```
+Use the official Cura build project : https://github.com/Ultimaker/cura-build
 
 ## Windows
 
-On Windows, the following dependencies are needed for building:
-
-* **git for windows** (https://git-for-windows.github.io/)
-  * The `git` command should be available on your `%PATH%`. Make sure that the `cmd` directory in the git for windows installation directory is on the `%PATH%` and *not* its `bin` directory, otherwise mingw32 will complain about `sh.exe` being on the path.
-* **CMake** (http://www.cmake.org/)
-  * Once CMake is installed make sure it is available on your `%PATH%`. Check this by running `cmake --version` in the Windows console.
-* **MinGW-W64** >= 4.9.04 (https://wiki.qt.io/MinGW-64-bit)
-  * Once installed, its `bin` directory should be available on your `%PATH%`. Test this by running `mingw32-make --version` in the Windows console.
-  * MinGW can be installed on different ways, but these were tested (without guarentees):
-    * MinGW w64 installer (32-/64bit): Install the correct target architecture and make sure you choose:
-      * Version := 4.9.3
-      * Architecture := i686 (here for 32bit)
-      * Threads := posix
-      * Exception := dwarf
-      * Build revision := 1
-    * Qt5 Installer (32bit only): You can install "MinGW 4.9.2" using their "Maintenance Tool" as a component from the category "Tools"
-    * When looking for other resources, make sure you download the posix flavour of MinGW. It is the only version, which is C++11 compatible (for more info take a look at the Qt docs).
-* **Python** 3.4 (http://python.org/)
-  * __NOTE__: using Python 3.5 is currently untested on Windows
-* **NumPy** (http://www.lfd.uci.edu/~gohlke/pythonlibs/#numpy)
-  * __NOTE__: make sure to get the NON-MKL version!
-* **SciPy** (http://www.lfd.uci.edu/~gohlke/pythonlibs/#scipy)
-* **Py2Exe** (https://pypi.python.org/pypi/py2exe/0.9.2.0/#downloads)
-  * The easiest way to install this is to run the command `pip install py2exe`. The executable `build_exe.exe` should now be in your `<python dir>/Scripts` directory. You may have to add `<python dir>/Scripts` to you `%PATH%`.
-* **Numpy-STL** (https://pypi.python.org/pypi/numpy-stl)
-  * Also the easiest way to install is via `pip3 install stl`.
-* **Numpy-STL** (https://pypi.python.org/pypi/zeroconf)
-  * Again the easiest way to install is via `pip3 install zeroconf`.
-* **Microsoft Visual Studio 2015 (community edition)**:
-  Go to "custom installation" and choose:
-    * Programming languages:
-      * Visual c++ (all)
-      * Python Tools for Visual Studio (Nov 2015)
-    * Windows & Web Development:
-      * Universal Windows App Development Tools:
-        * Tools 1.2
-        * Windows 10 SDK 10.0.10586
-        * Windows 10 SDK 10.0.10240
-* **NSIS 3** (http://nsis.sourceforge.net/Main_Page)
-  * This application is neeeded to create the installer 
-
-Make sure these dependencies are available from your path.
-
-Additionally, for 32-bit builds:
-
-* Perl (http://www.activestate.com/activeperl, Required to build Qt)
-* Create in the user directory a file named pydistutils.cfg with the following contents:
-```shell
-[build]
-compiler=mingw32
-```
-
-For 64-bit builds:
-
-* PyQt 5.4 (https://riverbankcomputing.com/software/pyqt/download5, Building PyQt currently fails using MinGW 64-bit)
-* Install protobuf.wheel found in cura-build-binaries (TODO: create cura-build-binaries repo)
-* Create empty ```__init__.py``` in c:\Python34\Lib\site-packages\google (TODO: make it part of the proto.wheel installation)
-
-```shell
-REM 32-bit
-git clone git@github.com:Ultimaker/cura-build.git
-cd cura-build
-mkdir build
-cd build
-..\env_win32.bat
-cmake -G "MinGW Makefiles" ..
-mingw32-make
-mingw32-make package
-```
-
-```shell
-REM 64-bit
-git clone git@github.com:Ultimaker/cura-build.git
-cd cura-build
-mkdir build
-cd build
-..\env_win64.bat
-cmake -G "MinGW Makefiles" -DBUILD_64BIT:BOOL=ON ..
-mingw32-make
-mingw32-make package
-```
-
-Before make package - copy arduino to cura-build/
+Use the official Cura build project : https://github.com/Ultimaker/cura-build
 
 ## Ubuntu/Linux
 
 cura-build can build Ubuntu/Debian packages of Cura.
 
-Dependencies:
+Dependencies (Needs updating):
 
 * python3 (>= 3.4.0)
 * python3-dev (>= 3.4.0)
@@ -149,7 +57,8 @@ cmake ..
 make
 make package
 ```
-## CentOS/Linux
+
+## CentOS/Linux (untested)
 
 cura-build can build CentOS/RHEL packages of Cura.
 
