@@ -1,8 +1,8 @@
 # cura-build-i386
 
 This repository contains build scripts used to build Cura and all dependencies from scratch on a Linux i386 machine.
-Tested on a Ubuntu Trusty () setup.
-Highly experimental : The version numbering is based on the current official Cura github hash at the time it was las tested, and some dependencies might require manual installing.
+Tested only on an Ubuntu Trusty (14.04) setup.
+Experimental : Some dependencies might require manual installing.
 
 ## OS X
 
@@ -12,7 +12,7 @@ Use the official Cura build project : https://github.com/Ultimaker/cura-build
 
 Use the official Cura build project : https://github.com/Ultimaker/cura-build
 
-## Ubuntu/Linux
+## Ubuntu/Linux (Trusty, probably needs tweaking for younger releases).
 
 cura-build can build Ubuntu/Debian packages of Cura.
 
@@ -29,11 +29,6 @@ Dependencies (Needs updating):
 * python3-opengl (>= 3.0)
 * python3-setuptools
 * python3-dev
-* qml-module-qtquick2 (>= 5.4.0)
-* qml-module-qtquick-window2 (>= 5.4.0)
-* qml-module-qtquick-layouts (>= 5.4.0)
-* qml-module-qtquick-dialogs (>= 5.4.0)
-* qml-module-qtquick-controls (>= 5.4.0)
 * libxcb1-dev
 * libx11-dev
 * zlib1g
@@ -45,8 +40,8 @@ Dependencies (Needs updating):
 To build, make sure these dependencies are installed, then clone this repository and run the following commands from your clone:
 
 ```shell
-sudo apt-get install gfortran python3 python3-dev python3-pyqt5 python3-pyqt5.qtopengl python3-pyqt5.qtquick python3-pyqt5.qtsvg python3-numpy python3-serial python3-opengl python3-setuptools qml-module-qtquick2 qml-module-qtquick-window2 qml-module-qtquick-layouts qml-module-qtquick-dialogs qml-module-qtquick-controls gfortran pkg-config libxcb1-dev libx11-dev
-git clone http://github.com/Ultimaker/cura-build.git
+sudo apt-get install gfortran python3 python3-dev python3-pyqt5 python3-pyqt5.qtopengl python3-pyqt5.qtquick python3-pyqt5.qtsvg python3-numpy python3-serial python3-opengl python3-setuptools gfortran pkg-config libxcb1-dev libx11-dev
+git clone http://github.com/Logre/cura-build-i386.git
 cd cura-build
 ```
 
@@ -58,7 +53,7 @@ make
 make package
 ```
 
-## CentOS/Linux (untested)
+## CentOS/Linux (untested, outdated instructions)
 
 cura-build can build CentOS/RHEL packages of Cura.
 
