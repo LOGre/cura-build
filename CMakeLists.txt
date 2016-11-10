@@ -97,13 +97,13 @@ endif()
 if(DEFINED ENV{CURA_PATCH_VERSION})
     set(CURA_PATCH_VERSION $ENV{CURA_PATCH_VERSION} CACHE STRING "Cura Patch Version" FORCE)
 else()
-    set(CURA_PATCH_VERSION "1-master" CACHE STRING "Cura Patch Version")
+    set(CURA_PATCH_VERSION "1" CACHE STRING "Cura Patch Version")
 endif()
 
 if(DEFINED ENV{CURA_EXTRA_VERSION})
     set(CURA_EXTRA_VERSION $ENV{CURA_EXTRA_VERSION} CACHE STRING "Cura Extra Version Information" FORCE)
 else()
-    set(CURA_EXTRA_VERSION "59fb0bc" CACHE STRING "Cura Extra Version Information")
+    set(CURA_EXTRA_VERSION "" CACHE STRING "Cura Extra Version Information")
 endif()
 
 set(CURA_VERSION "${CURA_MAJOR_VERSION}.${CURA_MINOR_VERSION}.${CURA_PATCH_VERSION}")
@@ -437,49 +437,49 @@ endif()
 ExternalProject_Add(Arcus
     DEPENDS Python Protobuf Sip
     GIT_REPOSITORY https://github.com/ultimaker/libArcus
-    GIT_TAG origin/${TAG_OR_BRANCH}
+    GIT_TAG 2.3.1
     CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${EXTERNALPROJECT_INSTALL_PREFIX} -DBUILD_EXAMPLES=OFF -DBUILD_STATIC=ON -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} ${ARCUS_EXTRA_ARGS}
 )
 
 ExternalProject_Add(CuraEngine
     DEPENDS Arcus
     GIT_REPOSITORY https://github.com/ultimaker/CuraEngine
-    GIT_TAG origin/${TAG_OR_BRANCH}
+    GIT_TAG 2.3.1
     CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${EXTERNALPROJECT_INSTALL_PREFIX} -DCURA_ENGINE_VERSION=${CURA_VERSION} -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
 )
 
 ExternalProject_Add(Uranium
     DEPENDS PyQt Arcus
     GIT_REPOSITORY https://github.com/ultimaker/Uranium
-    GIT_TAG origin/${TAG_OR_BRANCH}
+    GIT_TAG 2.3.1
     CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${EXTERNALPROJECT_INSTALL_PREFIX}
 )
 
 ExternalProject_Add(Cura
     DEPENDS Uranium CuraEngine
     GIT_REPOSITORY https://github.com/ultimaker/Cura
-    GIT_TAG origin/${TAG_OR_BRANCH}
+    GIT_TAG 2.3.1
     CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${EXTERNALPROJECT_INSTALL_PREFIX} -DURANIUM_SCRIPTS_DIR= -DCURA_VERSION=${CURA_VERSION} -DCMAKE_MODULE_PATH=${EXTERNALPROJECT_INSTALL_PREFIX}/share/cmake-${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION}/Modules/
 )
 
 ExternalProject_Add(Cura-PostProcessing
     DEPENDS Cura
     GIT_REPOSITORY https://github.com/nallath/PostProcessingPlugin
-    GIT_TAG origin/master
+    GIT_TAG 2.3.1
     CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${EXTERNALPROJECT_INSTALL_PREFIX}
 )
 
 ExternalProject_Add(Cura-UM3NetworkPrinting
     DEPENDS Cura
     GIT_REPOSITORY https://github.com/Ultimaker/UM3NetworkPrintingPlugin
-    GIT_TAG origin/${TAG_OR_BRANCH}
+    GIT_TAG 2.3.1
     CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${EXTERNALPROJECT_INSTALL_PREFIX}
 )
 
 ExternalProject_Add(cura-binary-data
     DEPENDS Cura
     GIT_REPOSITORY https://github.com/ultimaker/cura-binary-data
-    GIT_TAG origin/${TAG_OR_BRANCH}
+    GIT_TAG 2.3.1
     CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${EXTERNALPROJECT_INSTALL_PREFIX}
 )
 
@@ -494,7 +494,7 @@ ExternalProject_Add(Cura-Doodle3D
 ExternalProject_Add(fdm_materials
     DEPENDS Cura
     GIT_REPOSITORY https://github.com/ultimaker/fdm_materials
-    GIT_TAG origin/${TAG_OR_BRANCH}
+    GIT_TAG 2.3.1
     CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${EXTERNALPROJECT_INSTALL_PREFIX}
 )
 
@@ -514,7 +514,7 @@ foreach(repo ${EXTRA_REPOSITORIES})
     ExternalProject_Add(${name}
         DEPENDS ${_last_repo} cura-binary-data
         GIT_REPOSITORY ${repo}
-        GIT_TAG origin/master
+        GIT_TAG 2.3.1
         CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${EXTERNALPROJECT_INSTALL_PREFIX} ${cmake}
     )
 
@@ -639,7 +639,7 @@ elseif(BUILD_OS_LINUX)
         "${CMAKE_BINARY_DIR}/inst/share;/opt/cura/share"
     )
 
-    set(package_dir "_CPack_Packages/Linux/${CPACK_GENERATOR}/Cura-${CURA_VERSION}-Linux_i386/")
+    set(package_dir "_CPack_Packages/Linux/${CPACK_GENERATOR}/Cura-${CURA_VERSION}-Linux/")
     set(CPACK_INSTALL_COMMANDS
         "${CMAKE_COMMAND} -E make_directory ${package_dir}/usr/bin"
         "${CMAKE_COMMAND} -E make_directory ${package_dir}/usr/share/applications"
