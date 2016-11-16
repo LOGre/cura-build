@@ -18,6 +18,7 @@ cura-build can build Ubuntu/Debian packages of Cura.
 
 Dependencies (Needs updating):
 
+* git
 * python3 (>= 3.4.0)
 * python3-dev (>= 3.4.0)
 * python3-pyqt5 (>= 5.4.0)
@@ -28,24 +29,40 @@ Dependencies (Needs updating):
 * python3-serial (>= 2.6)
 * python3-opengl (>= 3.0)
 * python3-setuptools
-* python3-dev
+* libqt5designer5
+* libqt5gui5
+* libqt5help5
+* libqt5printsupport5
+* libqt5widgets5
+* libqt5opengl5
+* libqt5quick5
+* libqt5svg5
 * libxcb1-dev
 * libx11-dev
-* zlib1g
 * build-essential
-* pkg-config
-* cmake
 * gfortran
+* pkg-config
+* zlib1g
+* software-properties-common
+* cmake (>= 3.2)
+* sip
+* gcc (>= 4.9)
 
-To build, make sure these dependencies are installed, then clone this repository and run the following commands from your clone:
+To build, make sure these dependencies are installed, then clone this repository :
 
 ```shell
-sudo apt-get install gfortran python3 python3-dev python3-pyqt5 python3-pyqt5.qtopengl python3-pyqt5.qtquick python3-pyqt5.qtsvg python3-numpy python3-serial python3-opengl python3-setuptools gfortran pkg-config libxcb1-dev libx11-dev
+sudo -E add-apt-repository ppa:george-edison55/cmake-3.x
+sudo -E add-apt-repository ppa:ubuntu-toolchain-r/test
+sudo apt-get update
+sudo apt-get install git python3 python3-dev python3-pyqt5 python3-pyqt5.qtopengl python3-pyqt5.qtquick python3-pyqt5.qtsvg python3-numpy python3-serial python3-opengl python3-setuptools libqt5designer5 libqt5gui5 libqt5help5 libqt5printsupport5 libqt5widgets5 libqt5opengl5 libqt5quick5 libqt5svg5 libxcb1-dev libx11-dev build-essential gfortran pkg-config zlib1g software-properties-common cmake sip-dev gcc-4.9 g++-4.9
+sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.9 60 --slave /usr/bin/g++ g++ /usr/bin/g++-4.9
 git clone http://github.com/Logre/cura-build-i386.git
-cd cura-build
 ```
 
+And then run the following commands from your clone :
+
 ```shell
+cd cura-build-i386
 mkdir build
 cd build
 cmake ..
